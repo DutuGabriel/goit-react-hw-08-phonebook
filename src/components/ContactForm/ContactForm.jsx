@@ -4,7 +4,7 @@ import styles from './ContactForm.module.css';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.items);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -27,15 +27,17 @@ const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <label>
+      <label className={styles.label}>
         Name:
-        <input type="text" name="name" required />
+        <input type="text" name="name" required className={styles.input} />
       </label>
-      <label>
+      <label className={styles.label}>
         Number:
-        <input type="tel" name="number" required />
+        <input type="tel" name="number" required className={styles.input} />
       </label>
-      <button type="submit">Add contact</button>
+      <button type="submit" className={styles.button}>
+        Add contact
+      </button>
     </form>
   );
 };

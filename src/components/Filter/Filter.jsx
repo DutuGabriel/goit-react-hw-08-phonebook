@@ -7,14 +7,17 @@ const Filter = () => {
   const filter = useSelector(state => state.filter);
 
   return (
-    <label className={styles.label}>
-      Find contacts by name:
-      <input
-        type="text"
-        value={filter}
-        onChange={e => dispatch(setFilter(e.target.value))}
-      />
-    </label>
+    <div className={styles.wrapper}>
+      <label className={styles.label}>
+        Find contacts by name:
+        <input
+          className={styles.input}
+          type="text"
+          value={filter}
+          onChange={e => dispatch(setFilter(e.target.value))}
+        />
+      </label>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import { deleteContact } from '../../redux/contactsSlice';
 import styles from './ContactList.module.css';
 
 const ContactList = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
@@ -15,8 +15,15 @@ const ContactList = () => {
     <ul className={styles.list}>
       {filteredContacts.map(({ id, name, number }) => (
         <li key={id} className={styles.item}>
-          {name}: {number}
-          <button onClick={() => dispatch(deleteContact(id))}>Delete</button>
+          <span className={styles.text}>
+            {name}: {number}
+          </span>
+          <button
+            className={styles.button}
+            onClick={() => dispatch(deleteContact(id))}
+          >
+            Delete
+          </button>
         </li>
       ))}
     </ul>
