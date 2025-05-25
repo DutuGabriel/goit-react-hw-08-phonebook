@@ -1,6 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contactsSlice';
-import styles from './ContactList.module.css';
+import {
+  Box,
+  Text,
+  Button,
+  List,
+  ListItem,
+  Spinner,
+  Alert,
+  AlertIcon,
+} from '@chakra-ui/react';
 
 const ContactList = () => {
   const contacts = useSelector(state => state.contacts.items);
@@ -14,29 +23,50 @@ const ContactList = () => {
   );
 
   if (isLoading) {
-    return <p>Loading contacts...</p>;
+    return (
+      <Box textAlign="center" mt={6}>
+        <Spinner size="lg" />
+        <Text mt={2}>Loading contacts...</Text>
+      </Box>
+    );
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <Alert status="error" mt={4}>
+        <AlertIcon />
+        Error: {error}
+      </Alert>
+    );
   }
 
   return (
-    <ul className={styles.list}>
-      {filteredContacts.map(({ id, name, number }) => (
-        <li key={id} className={styles.item}>
-          <span className={styles.text}>
-            {name}: {number}
-          </span>
-          <button
-            className={styles.button}
-            onClick={() => dispatch(deleteContact(id))}
+    <Box maxW="md" mx="auto" mt={6}>
+      <List spacing={3}>
+        {filteredContacts.map(({ id, name, number }) => (
+          <ListItem
+            key={id}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            border="1px solid #ccc"
+            borderRadius="md"
+            p={3}
           >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+            <Text>
+              {name}: {number}
+            </Text>
+            <Button
+              colorScheme="red"
+              size="sm"
+              onClick={() => dispatch(deleteContact(id))}
+            >
+              Delete
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 };
 

@@ -1,6 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { login } from '../../redux/authSlice';
+import {
+  Box,
+  Button,
+  Input,
+  FormControl,
+  FormLabel,
+  Heading,
+  VStack,
+} from '@chakra-ui/react';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,21 +22,36 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
+    <Box maxW="md" mx="auto" mt="8" p="6" boxShadow="md" borderRadius="md">
+      <Heading mb="6" textAlign="center">
+        Login
+      </Heading>
+      <form onSubmit={handleSubmit}>
+        <VStack spacing="4">
+          <FormControl isRequired>
+            <FormLabel>Email</FormLabel>
+            <Input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </FormControl>
+
+          <Button colorScheme="teal" type="submit" width="full">
+            Login
+          </Button>
+        </VStack>
+      </form>
+    </Box>
   );
 };
 

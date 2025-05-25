@@ -1,10 +1,22 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
-import styles from './ContactForm.module.css';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  Heading,
+} from '@chakra-ui/react';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items);
+
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -26,19 +38,36 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <label className={styles.label}>
-        Name:
-        <input type="text" name="name" required className={styles.input} />
-      </label>
-      <label className={styles.label}>
-        Number:
-        <input type="tel" name="number" required className={styles.input} />
-      </label>
-      <button type="submit" className={styles.button}>
-        Add contact
-      </button>
-    </form>
+    <Box maxW="md" mx="auto" mt="8" p="6" boxShadow="md" borderRadius="md">
+      <Heading mb="6" textAlign="center">
+        Add Contact
+      </Heading>
+      <form onSubmit={handleSubmit}>
+        <VStack spacing={4}>
+          <FormControl isRequired>
+            <FormLabel>Name</FormLabel>
+            <Input
+              type="text"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel>Phone Number</FormLabel>
+            <Input
+              type="tel"
+              value={number}
+              onChange={e => setNumber(e.target.value)}
+            />
+          </FormControl>
+
+          <Button type="submit" colorScheme="teal" width="full">
+            Add Contact
+          </Button>
+        </VStack>
+      </form>
+    </Box>
   );
 };
 
